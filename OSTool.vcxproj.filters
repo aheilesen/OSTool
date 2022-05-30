@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ostool.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="switches.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="andrewll.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="parse_switch.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="parse_vss.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="list_view.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ost_shared.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="banner.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cab_view.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vss_connect.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ost_data.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ostool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="andrewll.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="parse_switch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="parse_vss.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="list_view.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ost_shared.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="banner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cab_view.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vss_connect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="OSTool.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="resource\sw_desc_6605.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resource\SP_SWITCH_DATA_6605.csv">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="resource\CA_SWITCH_DATA_6605.csv">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resource\DASH.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resource\ABFGHIJKL.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resource\C.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resource\D.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resource\E.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resource\M.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resource\P.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resource\hatch.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resource\truck.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resource\title.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resource\button_icons.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resource\toggles.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resource\rightarrow.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="resource\VolvoNovum-Regular.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="resource\VolvoNovum-Medium.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+  </ItemGroup>
+</Project>

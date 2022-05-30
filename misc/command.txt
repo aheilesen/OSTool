@@ -1,0 +1,1 @@
+wget "https://edb.volvo.net/cgi-bin/wis2/vehspec5.cgi?func=1&svariants=&pkl=04&f1=VSS&f2=21&f3=836303&funcflag=0&varfam=1&limitfunc=&onlykola=" -OutFile c:\users\A027699\desktop\out.html

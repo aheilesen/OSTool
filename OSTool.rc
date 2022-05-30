@@ -1,0 +1,195 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "winres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""winres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// CSV
+//
+
+IDR_CSV1                CSV                     "resource\\sw_desc_6605.txt"
+
+IDR_CSV3                CSV                     "resource\\SP_SWITCH_DATA_6605.csv"
+
+IDR_CSV4                CSV                     "resource\\CA_SWITCH_DATA_6605.csv"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+ABTDLG DIALOGEX 0, 0, 247, 168
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About"
+FONT 9, "Segoe UI", 400, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,190,147,50,14
+    LTEXT           "Volvo CE Dash Switch Visualizer",IDC_STATIC,74,19,98,8
+    LTEXT           "Hotkeys:",IDC_STATIC,110,68,27,8
+    LTEXT           "Andrew Heilesen, 2022",IDC_STATIC,89,43,69,8
+    LTEXT           "F1: Help",IDC_STATIC,110,80,26,8
+    LTEXT           "F2: Show / Hide Legend",IDC_STATIC,87,91,72,8
+    LTEXT           "F3: Set Focus to Search Box",IDC_STATIC,82,102,83,8
+    LTEXT           "Ver 1.00",IDC_STATIC,111,32,24,8
+    LTEXT           "F7: Clear Screen",IDC_STATIC,99,113,48,8
+    LTEXT           "CTRL + O: Open File",IDC_STATIC,92,124,62,8
+    LTEXT           "Esc: Clear selected switch",IDC_STATIC,85,136,77,8
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    "ABTDLG", DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 240
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 161
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+ABTDLG AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_CROSS               ICON                    "resource\\cross.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+DASH                    BITMAP                  "resource\\DASH.bmp"
+
+ABFGHIJKL               BITMAP                  "resource\\ABFGHIJKL.bmp"
+
+C                       BITMAP                  "resource\\C.bmp"
+
+D                       BITMAP                  "resource\\D.bmp"
+
+E                       BITMAP                  "resource\\E.bmp"
+
+M                       BITMAP                  "resource\\M.bmp"
+
+P                       BITMAP                  "resource\\P.bmp"
+
+HATCH4                  BITMAP                  "resource\\hatch.bmp"
+
+TRUCK                   BITMAP                  "resource\\truck.bmp"
+
+MAINTITLE               BITMAP                  "resource\\title.bmp"
+
+BUTTON_ICONS            BITMAP                  "resource\\button_icons.bmp"
+
+TOGGLES                 BITMAP                  "resource\\toggles.bmp"
+
+RIGHTARROW              BITMAP                  "resource\\rightarrow.bmp"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// BINFONT
+//
+
+NOVUM                   BINFONT                 "resource\\VolvoNovum-Regular.ttf"
+
+NOVUM_MED               BINFONT                 "resource\\VolvoNovum-Medium.ttf"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+VSS_ACCEL ACCELERATORS
+BEGIN
+    VK_F1,          ID_ACCEL_HELP,          VIRTKEY, NOINVERT
+    VK_F3,          ID_ACCEL_EDIT,          VIRTKEY, NOINVERT
+    VK_ESCAPE,      ID_ACCEL_DESEL,         VIRTKEY, NOINVERT
+    VK_F2,          ID_ACCEL_LGND,          VIRTKEY, NOINVERT
+    VK_F7,          ID_ACCEL_CLR,           VIRTKEY, NOINVERT
+    "^O",           ID_ACCEL_OPEN,          ASCII,  NOINVERT
+END
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

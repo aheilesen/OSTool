@@ -1,0 +1,52 @@
+22392513;Back of Cab Light
+23448164;Pre-trip Inspection
+24167359;Transmission PTO 1
+22702143;Remote Start Enable
+22626618;Brightwork Lights
+24167360;Transmission PTO 2
+24167356;Hydraulic Engine PTO
+22392471;Sleeper HVAC Mode Select
+22392444;Overhead Lamp
+22392545;Auxiliary
+22392998;Heated Windshield
+22823139;Floor Lighting
+22392435;Diff Lock, Inter-Axle
+23030595;Pusher Override Control
+22544308;Elec Cont. Susp, Up/Down
+22392588;Diff Lock, Inter-Wheel
+23390097;Traction Control, Limited Disable
+22997002;Traction Control, Full Disable
+22392426;Fifth Wheel Airslide
+22392577;Hill Start Assist Disable
+22544307;Elec Cont. Susp, Bogie Control
+23618207;E-Mob Drive/Reverse
+22862688;Elec Cont. Susp, On/Off
+23618205;E-Mob Neutral
+22392379;Air Suspension Dump
+22392994;Elec Cont. Susp, Chassis Height
+22392552;Cummins Eng Brake, On/Off
+22932653;Eco-Roll Disable
+22392550;Cummins Eng Brake, Type Selector
+23536495;Fifth Wheel Touch Lock
+22392974;Snow Plow Light
+22558336;Beacon Light
+22542599;Lift Axle (Tag)
+22542600;Lift Axle (Pusher)
+22558331;Inside / Outside Air Intake
+24167361;Front Engine PTO
+24167358;Twin-Flow PTO (Enable)
+22542584;Twin-Flow PTO 1
+22542585;Twin-Flow PTO 2
+23352830;Sec Gauge Cluster, Rear Axle Temp
+23352841;Sec Gauge Cluster, Eng/Trans Temp
+23927499;Data Capture
+22558326;Lane Departure Warning Disable
+22829454;Daytime Running Light Override
+21371086;Bluetooth Microphone
+22720979;Diff Lock, Inter-Wheel, Momentary
+23162822;Auxiliary, Momentary
+23942919;Diff Lock, IA, Disengage 25mph
+23942920;Diff Lock, IW, Disengage 25mph
+23984438;Diff Lock, Inter-Axle, Momentary
+24301398;Work/Backup Lamps, Separate Switch
+~
