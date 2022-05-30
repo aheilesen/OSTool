@@ -8,7 +8,6 @@
 #define IDR_CSV4                        107
 #define IDD_DIALOG1                     108
 #define IDI_ICON1                       110
-#define IDI_CROSS                       110
 #define IDB_BITMAP1                     127
 #define IDR_BINFONT1                    133
 #define IDR_BINFONT2                    136
