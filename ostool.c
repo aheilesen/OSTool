@@ -65,7 +65,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	MSG msg;
 
 	WNDCLASSA wndclass = { 0 };
-	wndclass.style          = 0;
+	wndclass.style          = CS_HREDRAW | CS_VREDRAW; // repaint when maximized
 	wndclass.lpfnWndProc    = WindowProc;
 	wndclass.cbClsExtra     = 0;
 	wndclass.cbWndExtra     = 0;
@@ -246,11 +246,17 @@ LRESULT CALLBACK WindowProc
 	// My users have 1080p displays so this is not a huge issue; however,
 	// it would be best to account for the possibility of different
 	// resolutions.
-	case WM_SIZE:
+	case WM_SIZE: {
+		RECT rect = { 0 };
+		int x = 0;
+		GetClientRect(hwnd, &rect);
+		x = rect.right / 2;
+
 		MoveWindow(hwnd_banner, 0, 0, LOWORD(lParam), 88, TRUE);
-		MoveWindow(hwnd_list_view, 32, 120, 384, 777, TRUE);
-		MoveWindow(hwnd_cab_view, 448, 120, 973, 777, TRUE);
+		MoveWindow(hwnd_list_view, x - 695, 120, 384, 777, TRUE);
+		MoveWindow(hwnd_cab_view, x - 279, 120, 973, 777, TRUE);
 		return 0;
+		}
 
 	case WM_COMMAND:
 		switch (LOWORD(wParam)) {          // Accelerator or control ID
