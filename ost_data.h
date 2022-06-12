@@ -4,16 +4,16 @@
 #include <Windows.h>
 #include "andrewll.h"
 
-#define LINE_LENGTH		500
+#define LINE_LENGTH       500
+#define MAX_VARIANTS      1500
+#define VAR_DESC_LENGTH   60
+#define FAM_DESC_LENGTH   30
+#define SYMBOL_LENGTH     8
+#define IDVAR6_LENGTH     6
 
-#define VAR_DESC_LENGTH		60
-#define FAM_DESC_LENGTH		30
-#define SYMBOL_LENGTH		8
-#define IDVAR6_LENGTH		6
+#define SW_NAME_LENGTH    20
 
-#define SW_NAME_LENGTH		20
-
-#define BUF_LENGTH		100
+#define BUF_LENGTH        100
 
 // COLORS
 #define VOLVO_BLUE (RGB(24,40,113))
@@ -59,9 +59,10 @@ typedef struct _tag_STATE_DATA {
 	HFONT h_font_text;
 } STATE_DATA, * P_STATE_DATA;
 
-struct vss_search_info {
+struct spec {
 	char url[200];
-	char vss_num[14];
+	char num[14];
+	struct variant *(*parse)(char* buf, int* num_var);
 };
 
 #endif

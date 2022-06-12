@@ -28,6 +28,7 @@
 #include <string.h>
 
 #include "parse_vss.h"
+#include "parse_order.h"   // For GetLineBuffer()
 
 ////////////////////////////////////////////////////////////////////////////////
 // skipToVariantsFile                                                         //
@@ -46,7 +47,7 @@
 //	3) The 14th line of input doesn't contain "000  AAX PRODUCT CLASS",        //
 //	   which is always the first variant listed in a valid COS retrieval.      //
 ////////////////////////////////////////////////////////////////////////////////
-int skipToVariantsFile(FILE* fp, fpos_t* fpos)
+static int skipToVariantsFile(FILE* fp, fpos_t* fpos)
 {
 	int i;
 	char line[LINE_LENGTH];
@@ -76,10 +77,11 @@ int skipToVariantsFile(FILE* fp, fpos_t* fpos)
 // position pointer, it moves a character pointer.                            //
 ////////////////////////////////////////////////////////////////////////////////
 
-int skipToVariantsBuffer(char** cur_pos)
+static int skipToVariantsBuffer(char** cur_pos)
 {
 	int i;
 	int count;
+	char line[LINE_LENGTH] = { 0 };
 
 	for (i = 0; i < 13; i++) {
 
@@ -101,8 +103,13 @@ int skipToVariantsBuffer(char** cur_pos)
 		(*cur_pos)++;
 	}
 
-	if (strstr(*cur_pos, "000  AAX PRODUCT CLASS") == NULL)
-		return -2;
+	// Check for presence of "000  AAX PRODUCT CLASS" which should exist
+	// on the first line of the variant list. Can't use strstr()
+	// on the buffer because lines aren't null-terminated.
+	if (GetLineBuffer(*cur_pos, line, LINE_LENGTH))
+		return -3;
+	if (strstr(line, "000  AAX PRODUCT CLASS") == NULL)
+		return -4;
 
 	return 0;
 }
@@ -120,7 +127,7 @@ int skipToVariantsBuffer(char** cur_pos)
 //	   maximum MAX_VARIANTS.                                                   //
 ////////////////////////////////////////////////////////////////////////////////
 
-int countLinesFile(FILE* fp)
+static int countLinesFile(FILE* fp)
 {
 	int i;
 	char line[LINE_LENGTH];
@@ -158,7 +165,7 @@ int countLinesFile(FILE* fp)
 // VSS spec retrieved from the internet (from EDB).                           //
 ////////////////////////////////////////////////////////////////////////////////
 
-int countLinesBuffer(char* buf)
+static int countLinesBuffer(char* buf)
 {
 	int i = 0;
 	int count;
@@ -173,8 +180,8 @@ int countLinesBuffer(char* buf)
 			if (*buf == '~')
 				return -1;
 
-			// In a valid spec, containing the variants
-			// should be 500 characters or more in length.
+			// In a valid spec, a line containing variant data
+			// should not be 500 characters or more in length.
 			// The longest line I found in my test spec
 			// was 247 characters long.
 			if (++count > 500)
@@ -186,7 +193,7 @@ int countLinesBuffer(char* buf)
 
 		// An empty line denotes the end of the variant list
 		if (*(buf - 1) == '\n')
-			return i;
+			return i - 1;
 		buf++;
 	}
 
@@ -202,7 +209,7 @@ int countLinesBuffer(char* buf)
 // ost_data.h). Returns a negative number if fgets fails, or 0.               //
 ////////////////////////////////////////////////////////////////////////////////
 
-int processVssLineFile(FILE* fp, struct variant* var)
+static int processVssLineFile(FILE* fp, struct variant* var)
 {
 	int i = 0;
 	int pos;
@@ -272,7 +279,7 @@ int processVssLineFile(FILE* fp, struct variant* var)
 // holds a VSS spec retrieved from the internet (from EDB).                   //
 ////////////////////////////////////////////////////////////////////////////////
 
-void processVssLineBuffer(char** buf_pos, struct variant* var)
+static void processVssLineBuffer(char** buf_pos, struct variant* var)
 {
 	char* c;
 	int i;
@@ -405,9 +412,9 @@ struct variant* parseVssFile(const char* file_path, int* num_var)
 // retrieved from the internet (from EDB).                                    //
 ////////////////////////////////////////////////////////////////////////////////
 
-struct variant* parseVssBuffer(char* buf_pos, int* num_var)
+struct variant *parseVssBuffer(char *buf_pos, int *num_var)
 {
-	struct variant* var_list;
+	struct variant *var_list;
 	char* starting_pos = buf_pos;
 	int i;
 

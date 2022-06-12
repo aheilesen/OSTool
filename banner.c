@@ -71,7 +71,7 @@ LRESULT CALLBACK bannerProc(HWND hwnd, UINT message, WPARAM wParam,
 
 	static int x_banner, y_banner;
 
-	static struct vss_search_info vsi = { 0 };
+	static struct spec vsi = { 0 };
 
 	POINT cursor_pos = { 0 };
 
@@ -132,19 +132,30 @@ LRESULT CALLBACK bannerProc(HWND hwnd, UINT message, WPARAM wParam,
 
 		case BTN_ID_ARROW:
 			if (arrow_enabled) {
+				size_t length = strlen(vsi.num);
+				vsi.parse = (length == 6) ? parseOrderBuffer : parseVssBuffer;
 
-				// Store VSS # from edit control into buf_vss
-				if (!getVssFromEdit(hwnd_edit, vsi.vss_num, 14)) {
-					MessageBoxA(NULL, "Error executing getVssFromEdit",
+				// Store # from edit control into 'num' buffer
+				if (!getNumFromEdit(hwnd_edit, vsi.num, 14)) {
+					MessageBoxA(NULL, "Error getting spec #!",
 						"Error", MB_ICONERROR);
 					break;
 				}
 
-				// Store EDB URL into buf_url
-				if (genVssURL(vsi.url, vsi.vss_num, 200) < 0) {
-					MessageBoxA(NULL, "Error executing genVssURL",
-						"Error", MB_ICONERROR);
-					break;
+				// Store EDB URL into 'url' buffer
+				if (length == 6) {
+					if (genOrderURL(vsi.num, vsi.url, 200) < 0) {
+						MessageBoxA(NULL, "Error executing order search",
+							"Error", MB_ICONERROR);
+						break;
+					}
+				}
+				else {
+					if (genVssURL(vsi.num, vsi.url, 200) < 0) {
+						MessageBoxA(NULL, "Error executing vss search",
+							"Error", MB_ICONERROR);
+						break;
+					}
 				}
 
 				// Disable search button
@@ -172,16 +183,16 @@ LRESULT CALLBACK bannerProc(HWND hwnd, UINT message, WPARAM wParam,
 				BOOL old_arr_en = arrow_enabled;
 				size_t len = 0;
 
-				ZeroMemory(vsi.vss_num, 14);
+				ZeroMemory(vsi.num, 14);
 
-				*(vsi.vss_num) = 14;
+				*(vsi.num) = 14;
 
-				SendMessageA(hwnd_edit, EM_GETLINE, 0, (LPARAM)vsi.vss_num);
+				SendMessageA(hwnd_edit, EM_GETLINE, 0, (LPARAM)vsi.num);
 
 				// EM_GETLINE does not append a null character
-				*(vsi.vss_num + 13) = '\0';
-				len = strlen(vsi.vss_num);
-				arrow_enabled = (checkInput(vsi.vss_num, len) < 0 ? FALSE : TRUE);
+				*(vsi.num + 13) = '\0';
+				len = strlen(vsi.num);
+				arrow_enabled = (checkInput(vsi.num, len) < 0 ? FALSE : TRUE);
 
 				if (arrow_enabled != old_arr_en)
 					InvalidateRect(hwnd_arrow, NULL, FALSE);
@@ -324,44 +335,56 @@ int checkInput(const char* input, size_t length)
 {
 	// Input must be in the following format:
 
-	//     As a VSS number: VSS-##-######
-	//          - or -    : VSS-##-#####
+	//     As a VSS number:    VSS-##-######
+	//          - or -    :    VSS-##-#####
+
+	//     Or an order number: ######
 
 	int i;
 
 	if (input == NULL)
 			return -1;
-	if (length < 12 || length > 13)
-			return -2;
 
-	// Edit control forces caps with ES_UPPERCASE
-	if (*input != 'V')
+	if (length == 6) {
+		for (i = 0; i < 6; i++) {
+			if (!isdigit(*(input + i))) {
+				return -2;
+			}
+		}
+		return 0;
+	}
+	else if (length == 12 || length == 13) {
+		// Edit control forces caps with ES_UPPERCASE
+		if (*input != 'V')
 			return -3;
-	if (*(input + 1) != 'S')
+		if (*(input + 1) != 'S')
 			return -4;
-	if (*(input + 2) != 'S')
+		if (*(input + 2) != 'S')
 			return -5;
-	if (*(input + 3) != '-')
+		if (*(input + 3) != '-')
 			return -6;
 
-	if (!isdigit(*(input + 4)))
+		if (!isdigit(*(input + 4)))
 			return -7;
-	if (!isdigit(*(input + 5)))
+		if (!isdigit(*(input + 5)))
 			return -8;
 
-	if (*(input + 6) != '-')
+		if (*(input + 6) != '-')
 			return -9;
 
-	// String buffer is between 12 and 13 characters in length (see 2nd
-	// if statement above). This means the array will be indexed from
-	// 0 - 11 or 0 - 12: 0 - 11 for five digits in the tertiary part, and
-	// 0 - 12 for six digits in the tertiary part (the maximum possible).
-	for (i = 7; i < length; i++) {
-		if (!isdigit(*(input + i)))
-			return -(i + 3);
+		// String buffer is between 12 and 13 characters in length. This means
+		// the array will be indexed from 0 - 11 or 0 - 12: 0 - 11 for five
+		// digits in the tertiary part, and 0 - 12 for six digits in the tertiary
+		// part (the maximum possible).
+		for (i = 7; i < length; i++) {
+			if (!isdigit(*(input + i)))
+				return -(i + 3);
+		}
+		return 0;
 	}
-
-	return 0;
+	else {
+		return -14;
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -447,14 +470,14 @@ void drawEditRect(HWND hwnd, HDC hdc, HDC hdc_mem, LPRECT p_rect,
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// getVssFromEdit                                                             //
+// getNumFromEdit                                                             //
 //                                                                            //
-// Retrieves the VSS number from the edit control and stores it into a        //
-// buffer, a pointer to which is passed as a parameter to this function. The  //
-// buffer must be 14 characters in length to hold all valid VSS numbers.      //
+// Retrieves the VSS / order number from the edit control and stores it into  //
+// a buffer, a pointer to which is passed as a parameter to this function.    //
+// The buffer must be 14 characters in length to hold all valid VSS numbers.  //
 ////////////////////////////////////////////////////////////////////////////////
 
-int getVssFromEdit(HWND hwnd_edit, char* buf_vss, unsigned buf_size)
+int getNumFromEdit(HWND hwnd_edit, char* buf_vss, unsigned buf_size)
 {
 	if (!buf_vss)
 		return -1;
@@ -515,7 +538,7 @@ LRESULT CALLBACK vssEditProc
 // middle two digits, and trailing five/six digits are these two pieces.      //
 ////////////////////////////////////////////////////////////////////////////////
 
-int genVssURL(char* dest, const char* src, int dest_size)
+int genVssURL(const char* src, char *dest, int dest_size)
 {
 	// src format: VSS-12-123456
 	//   - or -  : VSS-12-12345
@@ -556,4 +579,20 @@ int genVssURL(char* dest, const char* src, int dest_size)
 		return -6;
 
 	return lstrlenA(dest);
+}
+
+int genOrderURL(const char* src, char* dest, int dest_size)
+{
+	char p1[] = "https://edb.volvo.net/cgi-bin/wis2/vespa_vehspec.cgi?func=1&signature=VTNA&identity=";
+	char p2[] = "&funcflag=1&funcflag=1&varfam=1";
+
+	// +7: 6 for order number, 1 for terminating null
+	if (strlen(p1) + strlen(p2) + 7 > dest_size)
+		return -1;
+
+	strcpy_s(dest, dest_size, p1);
+	strcat_s(dest, dest_size, src);
+	strcat_s(dest, dest_size, p2);
+
+	return 0;
 }

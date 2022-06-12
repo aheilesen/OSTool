@@ -240,12 +240,6 @@ LRESULT CALLBACK WindowProc
 
 		return 0;
 
-	// Possible future improvement: this program does not move or resize
-	// the child windows. If the main window size is changed, the child
-	// windows will either be hidden or aligned completely to the left.
-	// My users have 1080p displays so this is not a huge issue; however,
-	// it would be best to account for the possibility of different
-	// resolutions.
 	case WM_SIZE: {
 		RECT rect = { 0 };
 		int x = 0;
@@ -316,11 +310,11 @@ LRESULT CALLBACK WindowProc
 			else {      // Spec retrieved from EDB
 
 				// Internet spec retrieval variables
-				char* vss_buf = NULL;
+				char *vss_buf = NULL;
 				DWORD buf_size = 200000;
 
-				const char* url     = ((struct vss_search_info*)lParam)->url;
-				const char* vss_num = ((struct vss_search_info*)lParam)->vss_num;
+				const char *url     = ((struct spec *)lParam)->url;
+				// const char *num     = ((struct spec *)lParam)->num;
 
 				SetCursor(LoadCursor(NULL, IDC_WAIT));
 
@@ -338,7 +332,8 @@ LRESULT CALLBACK WindowProc
 				// !
 
 				// parseVssBuffer frees vss_buf
-				var_list = parseVssBuffer(vss_buf, &num_var);
+				var_list = ((struct spec*)lParam)->parse(vss_buf, &num_var);
+				//var_list = parseVssBuffer(vss_buf, &num_var);
 				if (var_list == NULL) {
 					MessageBoxA(hwnd, "Error downloading VSS spec!\n\n"
 					            "Make sure the VSS number was entered correctly.",
@@ -352,9 +347,12 @@ LRESULT CALLBACK WindowProc
 				// !
 
 				// Set title bar text to display the VSS # retrieved
-				strncpy_s(title_text, title_size, g_title, strlen(g_title));
+				/*strncpy_s(title_text, title_size, g_title, strlen(g_title));
 				strncat_s(title_text, title_size, " - ", 3);
-				strncat_s(title_text, title_size, vss_num, strlen(vss_num));
+				strncat_s(title_text, title_size, vss_num, strlen(vss_num));*/
+
+				strncpy_s(title_text, title_size, ((struct spec*)lParam)->num,
+				          strlen(((struct spec*)lParam)->num));
 				SetWindowTextA(hwnd, title_text);
 			}
 
@@ -384,8 +382,7 @@ LRESULT CALLBACK WindowProc
 				return 0;
 			}
 
-			getSrcBitmapPos(state_data.p_sw_list,
-							state_data.src_bitmap_pos);
+			getSrcBitmapPos(state_data.p_sw_list, state_data.src_bitmap_pos);
 
 			state_data.src_bitmap_pos[0] = getSwPanel(var_list, num_var);
 

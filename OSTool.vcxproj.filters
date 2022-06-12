@@ -45,6 +45,9 @@
     <ClCompile Include="vss_connect.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="parse_order.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ost_data.h">
@@ -79,6 +82,9 @@
     </ClInclude>
     <ClInclude Include="vss_connect.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="parse_order.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

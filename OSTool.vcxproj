@@ -149,6 +149,7 @@
     <ClCompile Include="cab_view.c" />
     <ClCompile Include="ostool.c" />
     <ClCompile Include="ost_shared.c" />
+    <ClCompile Include="parse_order.c" />
     <ClCompile Include="parse_switch.c" />
     <ClCompile Include="parse_vss.c" />
     <ClCompile Include="switches.c" />
@@ -162,6 +163,7 @@
     <ClInclude Include="ost_data.h" />
     <ClInclude Include="ostool.h" />
     <ClInclude Include="ost_shared.h" />
+    <ClInclude Include="parse_order.h" />
     <ClInclude Include="parse_switch.h" />
     <ClInclude Include="parse_vss.h" />
     <ClInclude Include="resource.h" />
