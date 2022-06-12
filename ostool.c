@@ -312,9 +312,7 @@ LRESULT CALLBACK WindowProc
 				// Internet spec retrieval variables
 				char *vss_buf = NULL;
 				DWORD buf_size = 200000;
-
 				const char *url     = ((struct spec *)lParam)->url;
-				// const char *num     = ((struct spec *)lParam)->num;
 
 				SetCursor(LoadCursor(NULL, IDC_WAIT));
 
@@ -331,9 +329,8 @@ LRESULT CALLBACK WindowProc
 				// At this point, vss_buf points to memory allocated on heap
 				// !
 
-				// parseVssBuffer frees vss_buf
+				// parsing function frees vss_buf
 				var_list = ((struct spec*)lParam)->parse(vss_buf, &num_var);
-				//var_list = parseVssBuffer(vss_buf, &num_var);
 				if (var_list == NULL) {
 					MessageBoxA(hwnd, "Error downloading VSS spec!\n\n"
 					            "Make sure the VSS number was entered correctly.",
@@ -347,10 +344,6 @@ LRESULT CALLBACK WindowProc
 				// !
 
 				// Set title bar text to display the VSS # retrieved
-				/*strncpy_s(title_text, title_size, g_title, strlen(g_title));
-				strncat_s(title_text, title_size, " - ", 3);
-				strncat_s(title_text, title_size, vss_num, strlen(vss_num));*/
-
 				strncpy_s(title_text, title_size, ((struct spec*)lParam)->num,
 				          strlen(((struct spec*)lParam)->num));
 				SetWindowTextA(hwnd, title_text);

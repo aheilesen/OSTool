@@ -30,9 +30,12 @@ static void GetProperty(char **line, char *dest, int skip, int length)
       }
 		// Rarely, the variant description may be terminated with
 		// an endline before occupying the full 60 character limit
-      if ((*dest++ = *(*line)++) == '\n')
-         return;
+		if ((*dest++ = *(*line)++) == '\n') {
+			*(dest - 1) = '\0';
+			return;
+		}
    }
+	*dest = '\0';
 }
 
 static int skipToVariantsOrderBuffer(char **cur_pos)
@@ -41,7 +44,7 @@ static int skipToVariantsOrderBuffer(char **cur_pos)
 	int count;
 	char line[LINE_LENGTH] = { 0 };
 
-	for (i = 0; i < 14; i++) {
+	for (i = 0; i < 13; i++) {
 		count = 0;
 		while (**cur_pos != '\n') {
 			// '~' is used as the EOF marker. EOF should
@@ -50,8 +53,8 @@ static int skipToVariantsOrderBuffer(char **cur_pos)
 				return -1;
 			}
 			// In a valid spec, no line before the variants
-			// begin should be 210 characters or more in length.
-			if (++count > 250) {
+			// begin should be more than 500 chars long.
+			if (++count > 500) {
 				return -2;
 			}
 			(*cur_pos)++;
@@ -64,8 +67,9 @@ static int skipToVariantsOrderBuffer(char **cur_pos)
 	// on the buffer because lines aren't null-terminated.
 	if (GetLineBuffer(*cur_pos, line, LINE_LENGTH))
 		return -3;
-	if (strstr(line, "PRODUCT CLASS") == NULL)
+	if (strstr(line, "PRODUCT CLASS") == NULL) {
 		return -4;
+	}
 
 	return 0;
 }
@@ -108,6 +112,10 @@ static void processOrderLineBuffer(char **buf_pos, struct variant *var)
 	GetFamDesc(buf_pos, var->fam_desc);
 	GetSymbol(buf_pos, var->symbol);
 	GetVarDesc(buf_pos, var->var_desc);
+
+	if (**buf_pos == '\n') {
+		(*buf_pos)++;
+	}
 }
 
 struct variant *parseOrderBuffer(char *buf, int *num_var)
