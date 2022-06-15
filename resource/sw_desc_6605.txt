@@ -49,4 +49,5 @@
 23942920;Diff Lock, IW, Disengage 25mph
 23984438;Diff Lock, Inter-Axle, Momentary
 24301398;Work/Backup Lamps, Separate Switch
+22951528;Webasto Timer Control
 ~
