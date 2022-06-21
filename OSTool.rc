@@ -74,7 +74,7 @@ BEGIN
     LTEXT           "F1: Help",IDC_STATIC,110,80,26,8
     LTEXT           "F2: Show / Hide Legend",IDC_STATIC,87,91,72,8
     LTEXT           "F3: Set Focus to Search Box",IDC_STATIC,82,102,83,8
-    LTEXT           "Ver 1.00",IDC_STATIC,111,32,24,8
+    LTEXT           "Ver 1.1",IDC_STATIC,111,32,20,8
     LTEXT           "F7: Clear Screen",IDC_STATIC,99,113,48,8
     LTEXT           "CTRL + O: Open File",IDC_STATIC,92,124,62,8
     LTEXT           "Esc: Clear selected switch",IDC_STATIC,85,136,77,8

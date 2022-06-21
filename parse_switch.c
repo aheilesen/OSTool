@@ -222,9 +222,14 @@ int checkVarString(const Variant* var_list, int num_var, const char* sw_vars)
 
 		// Loop through every variant in the spec. Check if var_tmp is
 		// one of those variants.
-		for (j = 0; j < num_var; j++)
-			if (!strncmp((var_list + j)->symbol, var_tmp, i))
-				break;
+		for (j = 0; j < num_var; j++) {
+			if (!strncmp((var_list + j)->symbol, var_tmp, i)) {
+				if (*((var_list + j)->symbol + i) == ' ' ||
+					 *((var_list + j)->symbol + i) == '\0') {
+					break;
+				}
+			}
+		}
 
 		if (j == num_var)
 			return -1;
@@ -420,6 +425,11 @@ int insertNewSW(LL* sw_list, int loc, int pn, const char* buf, int qty)
 
 		elem_prev_tmp = elem_tmp;
 		elem_tmp = elem_tmp->next;
+	}
+
+	// Insert at head of list
+	if (elem_tmp == sw_list->head) {
+		elem_prev_tmp = NULL;
 	}
 
 	if (LL_Ins_Next(sw_list, elem_prev_tmp, new_link) != 0) {

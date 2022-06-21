@@ -13,7 +13,6 @@ int GetLineBuffer(const char *src, char *dest, int dest_size)
 
 static void GetProperty(char **line, char *dest, int skip, int length)
 {
-	int count = 0;
 	int i;
 
    for (i = 0; i < skip; i++) {
@@ -21,13 +20,6 @@ static void GetProperty(char **line, char *dest, int skip, int length)
    }
    
    for (i = 0; i < length; i++) {
-      if (**line == '&') {   // skip HTML entities
-			count = 0;
-			while (*(*line)++ != ';') {
-				if (++count > 10)
-					break;
-			}
-      }
 		// Rarely, the variant description may be terminated with
 		// an endline before occupying the full 60 character limit
 		if ((*dest++ = *(*line)++) == '\n') {
