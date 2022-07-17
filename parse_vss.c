@@ -231,9 +231,10 @@ static int processVssLineFile(FILE* fp, struct variant* var)
 
 	// Check if this line has a link. If it does, skip text to get to
 	// the symbol field.
-	c = strstr(line + pos, ".pdf\">");
-	if (c != NULL)
-		pos = (int)(c - line) + 6;
+	c = strstr(line + pos, "\">");
+	if (c != NULL) {
+		while (line[pos++] != '>') {}
+	}
 
 	// Read Symbol
 	for (i = 0; i < SYMBOL_LENGTH; i++)
@@ -299,10 +300,10 @@ static void processVssLineBuffer(char** buf_pos, struct variant* var)
 
 	// Check if this line has a link. If it does, skip text to get to
 	// the symbol field.
-	c = strstr(*buf_pos, ".pdf\">");
+	c = strstr(*buf_pos, "\">");
 	if (c != NULL && c < strchr(*buf_pos, '\n')) {
 		has_link = TRUE;
-		*buf_pos = c + 6;
+		while ( *(*buf_pos)++ != '>') {}
 	}
 
 	// Read Symbol
